@@ -10,9 +10,9 @@
  ********************************************************************************************************************/
 /**
  *********************************************************************************************************************
- *  \file		fault.c
+ *  \file		fault_mngt.c
  *  
- *  \brief		TODO
+ *  \brief		FAULT module source file
  *
  *  \details	
  *
@@ -23,12 +23,16 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "fault.h"
+#include "fault_mngt.h"
 
 /* Macro definition ------------------------------------------------------------------------------------------------*/
 /* Constant definition ---------------------------------------------------------------------------------------------*/
 /* Type definition  ------------------------------------------------------------------------------------------------*/
 /* Public variables ------------------------------------------------------------------------------------------------*/
+uint64_t FAULT_InfoMask;
+uint64_t FAULT_MinorMask;
+uint64_t FAULT_MajorMask;
+
 /* Private variables -----------------------------------------------------------------------------------------------*/
 /* Private functions prototypes ------------------------------------------------------------------------------------*/
 static void fctState_Inactive(void *pArg);
@@ -96,8 +100,8 @@ static void fctState_Active(void *pArg)
     if((pFault->disappearenceCond != NULL) && (pFault->disappearenceCond(NULL) == true))
     {
         //Disappeared Fault
-        pFault->state = ACTIVE;
-        pFault->fctState = fctState_Active;
+        pFault->state = INACTIVE;
+        pFault->fctState = fctState_Inactive;
 
         if(pFault->disappearenceAction != NULL)
         {
@@ -119,6 +123,13 @@ static void fctState_Active(void *pArg)
                 break;
             default:
                 break;
+        }
+    }
+    else
+    {
+        if(pFault->activeAction != NULL)
+        {
+            pFault->activeAction(NULL);
         }
     }
 
