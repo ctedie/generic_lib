@@ -1,0 +1,10 @@
+fault_t ##FAULT_NAME## = {
+                         .appearenceCond = ##FAULT_NAME##_App_Cond,
+                         .appearenceAction = ##FAULT_NAME##_App_Act,
+                         .disappearenceCond = ##FAULT_NAME##_Disp_Cond,
+                         .disappearenceAction = ##FAULT_NAME##_Disp_Act,
+                         .activeAction = ##FAULT_NAME##_Presence,
+                         .faultType = MAJOR,
+                         .initState = INACTIVE
+                         };
+

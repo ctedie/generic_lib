@@ -7,24 +7,24 @@
  *  \date		14 juin 2018
  *  \addtogroup	FAULT
  *  \{
- *  \addtogroup	FAULT_DEFINITION
+ *  \addtogroup	FAULT_CONFIG
  *  \{
  *  
- *  \brief 
+ *  \brief The fault Configuration module
  *  
  *  \details 
  ********************************************************************************************************************/
 /**
  *********************************************************************************************************************
- *  \file		fault_definition.h
+ *  \file		fault_config.h
  *  
- *  \brief		TODO
+ *  \brief		FAULT_CONFIG header file
  *
  *  \details	
  *
  ********************************************************************************************************************/
-#ifndef FAULT_DEFINITION_H_
-#define FAULT_DEFINITION_H_
+#ifndef FAULT_CONFIG_H_
+#define FAULT_CONFIG_H_
 
 #ifdef __cplusplus
 extern "C"
@@ -38,18 +38,16 @@ extern "C"
 
 #include "fault_mngt.h"
 #include "fault_config.h"
-#include "fault_definition.h"
 
 /* Public Macro definition -----------------------------------------------------------------------------------------*/
 /* Public Constant definition --------------------------------------------------------------------------------------*/
 /* Public Type definition  -----------------------------------------------------------------------------------------*/
 /* Public variables ------------------------------------------------------------------------------------------------*/
-
-extern fault_t FLT_FirstFault;
-
 /* Public functions ------------------------------------------------------------------------------------------------*/
 
-#endif /* FAULT_DEFINITION_H_ */
+##FAULT_DEF_PROTOTYPE##
+
+#endif /* FAULT_CONFIG_H_ */
 
 #ifdef __cplusplus
 }

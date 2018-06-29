@@ -66,16 +66,16 @@ static void fctState_Inactive(void *pArg)
             pFault->appearenceAction(NULL);
         }
 
-        //TODO Update fault mask
+        // Update fault mask
         switch (pFault->faultType) {
             case INFO:
-                FAULT_InfoMask |= (1 << pFault->id);
+                FAULT_InfoMask |= (1ULL << pFault->id);
                 break;
             case MINOR:
-                FAULT_MinorMask |= (1 << pFault->id);
+                FAULT_MinorMask |= (1ULL << pFault->id);
                 break;
             case MAJOR:
-                FAULT_MajorMask |= (1 << pFault->id);
+                FAULT_MajorMask |= (1ULL << pFault->id);
                 break;
             default:
                 break;

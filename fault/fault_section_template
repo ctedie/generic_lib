@@ -1,0 +1,33 @@
+/***************************************************/
+/**              ##FAULT_NAME##                   **/
+/***************************************************/
+
+/* ##APP_CON_TEXT## */
+void ##FAULT_NAME##_App_Cond(void *pArg)
+{
+
+}
+
+/* ##APP_ACT_TEXT## */
+void ##FAULT_NAME##_App_Act(void *pArg)
+{
+
+}
+
+/* ##PRESENCE_TEXT## */
+void ##FAULT_NAME##_Presence(void *pArg)
+{
+
+}
+
+/* ##DISP_COND_TEXT## */
+void ##FAULT_NAME##_Disp_Cond(void *pArg)
+{
+
+}
+
+/* ##DISP_ACT_TEXT## */
+void ##FAULT_NAME##_Disp_Act(void *pArg)
+{
+
+}

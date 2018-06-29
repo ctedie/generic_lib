@@ -1,0 +1,5 @@
+void ##FAULT_NAME##_App_Cond(void *pArg);
+void ##FAULT_NAME##_App_Act(void *pArg);
+void ##FAULT_NAME##_Presence(void *pArg);
+void ##FAULT_NAME##_Disp_Cond(void *pArg);
+void ##FAULT_NAME##_Disp_Act(void *pArg);
