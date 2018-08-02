@@ -5,9 +5,9 @@
  *********************************************************************************************************************
  *  \author		tedie.cedric
  *  \date		2 août 2018
- *  \addtogroup	TODO
+ *  \addtogroup	GENERIC
  *  \{
- *  \addtogroup	TODO
+ *  \addtogroup	FIFO
  *  \{
  *  
  *  \brief 
@@ -18,13 +18,13 @@
  *********************************************************************************************************************
  *  \file		fifo.h
  *  
- *  \brief		TODO
+ *  \brief		The FIFO module header
  *
  *  \details	
  *
  ********************************************************************************************************************/
-#ifndef GENERIC_GENERIC_LIB_FIFO_FIFO_H_
-#define GENERIC_GENERIC_LIB_FIFO_FIFO_H_
+#ifndef FIFO_H_
+#define FIFO_H_
 
 #ifdef __cplusplus
 extern "C"
@@ -36,10 +36,25 @@ extern "C"
 /* Public Macro definition -----------------------------------------------------------------------------------------*/
 /* Public Constant definition --------------------------------------------------------------------------------------*/
 /* Public Type definition  -----------------------------------------------------------------------------------------*/
+typedef struct fifo_elem_t
+{
+    struct fifo_elem_t *pNext;
+}fifo_elem_t;
+
+typedef struct
+{
+    fifo_elem_t *pFirst;
+    fifo_elem_t *pLast;
+}fifo_t;
+
 /* Public variables ------------------------------------------------------------------------------------------------*/
 /* Public functions ------------------------------------------------------------------------------------------------*/
+void FIFO_Init(fifo_t *pFifo);
+void FIFO_add(fifo_t *pFifo, fifo_elem_t *pElem);
+fifo_elem_t *FIFO_getFirst(fifo_t *pFifo);
+bool FIFO_isEmpty(fifo_t *pFifo);
 
-#endif /* GENERIC_GENERIC_LIB_FIFO_FIFO_H_ */
+#endif /* FIFO_H_ */
 
 #ifdef __cplusplus
 }

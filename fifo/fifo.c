@@ -5,14 +5,14 @@
  *********************************************************************************************************************
  *  \author		tedie.cedric
  *  \date		2 août 2018
- *  \addtogroup	TODO
+ *  \addtogroup	FIFO
  *  \{
  ********************************************************************************************************************/
 /**
  *********************************************************************************************************************
  *  \file		fifo.c
  *  
- *  \brief		TODO
+ *  \brief		The FIFO module source file
  *
  *  \details	
  *
@@ -21,6 +21,9 @@
 /* Includes --------------------------------------------------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
+
+#include "fifo.h"
 
 /* Macro definition ------------------------------------------------------------------------------------------------*/
 /* Constant definition ---------------------------------------------------------------------------------------------*/
@@ -33,14 +36,107 @@
 
 /**
  *********************************************************
- * \brief 
+ * \brief
  *
  * \param [in]  
  * \param [out]  
  *
  * \return
  *********************************************************/
+void FIFO_Init(fifo_t *pFifo)
+{
 
+    //TODO create critical section
+    pFifo->pFirst = NULL;
+    pFifo->pLast = NULL;
+
+}
+
+/**
+ *********************************************************
+ * \brief
+ *
+ * \param [in]
+ * \param [out]
+ *
+ * \return
+ *********************************************************/
+void FIFO_add(fifo_t *pFifo, fifo_elem_t *pElem)
+{
+    // L'element d'est pas déja present dans la fifo
+    if((pElem->pNext != NULL) || (pFifo->pLast == pElem))
+    {
+        // TODO manage pb;
+    }
+    else
+    {
+        //Si la liste est vide
+        if(pFifo->pFirst == NULL)
+        {
+            //alors l'element devient le premier element de la fifo
+            pFifo->pFirst = pElem;
+        }
+        else
+        {
+            //sinon on ajoute l'elemnt à la suite
+            pFifo->pLast->pNext = pElem;
+        }
+
+        pElem->pNext = NULL;
+        pFifo->pLast = pElem;
+    }
+}
+
+/**
+ *********************************************************
+ * \brief
+ *
+ * \param [in]
+ * \param [out]
+ *
+ * \return
+ *********************************************************/
+fifo_elem_t *FIFO_getFirst(fifo_t *pFifo)
+{
+    fifo_elem_t *pElem;
+
+    if(pFifo->pFirst == NULL)
+    {
+        //La fifo est vide
+        pElem = NULL;
+    }
+    else
+    {
+        pElem = pFifo->pFirst;
+
+        pFifo->pFirst = pElem->pNext;
+
+        if(pFifo->pFirst == NULL)
+        {
+            // La liste est desormai vide
+            pFifo->pLast = NULL;
+        }
+
+        //On libere pElem de toute liste
+        pElem->pNext = NULL;
+    }
+
+    return pElem;
+}
+
+/**
+ *********************************************************
+ * \brief
+ *
+ * \param [in]
+ * \param [out]
+ *
+ * \return
+ *********************************************************/
+bool FIFO_isEmpty(fifo_t *pFifo)
+{
+    return pFifo->pFirst == NULL ? true : false;
+}
 
 /** \} */
 /******************************************************** EOF *******************************************************/
