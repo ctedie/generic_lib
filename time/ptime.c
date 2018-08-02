@@ -26,10 +26,14 @@
 #include "ptime.h"
 
 /* Macro definition ------------------------------------------------------------------------------------------------*/
-//#define IS_JANUARY(x)   ()
+#define IS_LEAP(x)   ((((((x) % 4 == 0) && ((x) % 100 != 0)) ||(((x) % 400 == 0) && ((x) % 100 == 0)))) ? true : false )
 
 /* Constant definition ---------------------------------------------------------------------------------------------*/
-#define YEAR_IN_SECOND  31557600U
+//#define YEAR_IN_SECOND  31556926U
+
+#define YEAR_IN_SECOND  31557600U //365.25
+// End of year 1970     31535999
+//#define YEAR_IN_SECOND  31556926U //365.24
 #define DAY_IN_SECOND   86400U
 
 uint16_t m_isLeapYear = 0;
@@ -115,17 +119,19 @@ inline uint64_t PTIME_get(void)
 void PTIME_getDate(ptime_t *date)
 {
     uint64_t s = PTIME_timestamp_ms / 1000;
+    uint64_t years = s;
     uint16_t days;
     uint16_t i;
 
 
-    date->year = 1970 + (s / YEAR_IN_SECOND);
-    s = s % YEAR_IN_SECOND;
+    date->year = 1970 + (years / YEAR_IN_SECOND);
+    years = years % YEAR_IN_SECOND;
 
-    days = (s / DAY_IN_SECOND) + 1;
-    s = s % DAY_IN_SECOND;
+    date->__dayInYear = (years / DAY_IN_SECOND)+1;
+    days = (years / DAY_IN_SECOND) + 1;
+    years = years % DAY_IN_SECOND;
 
-    date->hours = s / 3600;
+    date->hours = (s / 3600) % 24;
     s = s % 3600;
 
     date->minutes = s / 60;
@@ -160,6 +166,48 @@ void PTIME_getDate(ptime_t *date)
             break;
         }
     }
+
+}
+
+/**
+ *********************************************************
+ * \brief
+ *
+ * \param [in]
+ * \param [out]
+ *
+ * \return
+ *********************************************************/
+void PTIME_setDate(ptime_t *date)
+{
+    uint16_t i;
+    uint16_t days = 0;
+
+    PTIME_timestamp_ms = (uint64_t)((uint64_t)(date->year - 1970) * YEAR_IN_SECOND) * 1000;
+
+    //check leap year
+    if(IS_LEAP(date->year))
+    {
+        //Année bissextile
+        TAB_MONTH[1] = 29;
+    }
+    else
+    {
+        TAB_MONTH[1] = 28;
+    }
+
+
+    for (i = 1; i < date->month; ++i)
+    {
+        days += TAB_MONTH[i-1];
+    }
+
+    PTIME_timestamp_ms += (uint64_t)((uint64_t)(days + (date->day - 1)) * 86400) * 1000;
+    PTIME_timestamp_ms += (uint64_t)date->hours * 3600 * 1000;
+    PTIME_timestamp_ms += (uint64_t)date->minutes * 60 * 1000;
+    PTIME_timestamp_ms += (uint64_t)date->seconds * 1000;
+
+
 
 }
 

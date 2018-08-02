@@ -46,6 +46,7 @@ typedef struct
     uint16_t day;
     uint16_t month;
     uint16_t year;
+    uint16_t __dayInYear;
 }ptime_t;
 /* Public variables ------------------------------------------------------------------------------------------------*/
 extern uint64_t PTIME_timestamp_ms;
@@ -55,6 +56,7 @@ void PTIME_init(uint64_t initTimestamp);
 void PTIME_update(uint32_t updateVal_ms);
 inline uint64_t PTIME_get(void);
 void PTIME_getDate(ptime_t *date);
+void PTIME_setDate(ptime_t *date);
 
 #endif /* PTIME_H_ */
 
